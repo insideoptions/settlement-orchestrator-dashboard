@@ -10,16 +10,16 @@ export interface BotConfig {
 
 export interface TradeAlert {
   id: string;
-  today_date: string;
+  symbol: string;
   expiration: string;
-  underlying_value: number;
   call_buy_strike: number;
   call_sell_strike: number;
   put_sell_strike: number;
   put_buy_strike: number;
   credit: number;
   max_risk: number;
-  status: 'Open' | 'Closed';
+  level: string;
+  status: 'open' | 'closed';
   settlement_price?: number;
   pnl?: number;
   closed_at?: string;

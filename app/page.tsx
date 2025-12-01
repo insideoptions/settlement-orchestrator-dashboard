@@ -22,15 +22,15 @@ interface Config {
 
 interface Trade {
   id: string;
-  today_date: string;
+  symbol: string;
   expiration: string;
-  underlying_value: number;
   call_sell_strike: number;
   call_buy_strike: number;
   put_sell_strike: number;
   put_buy_strike: number;
   credit: number;
   max_risk: number;
+  level: string;
   status: string;
   pnl?: number;
   settlement_price?: number;
@@ -244,11 +244,11 @@ export default function Dashboard() {
                     </td>
                     <td className="py-4 text-center">
                       <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        trade.status === 'Open' 
+                        trade.status === 'open' 
                           ? 'bg-yellow-500/20 text-yellow-500' 
                           : 'bg-slate-700 text-slate-400'
                       }`}>
-                        {trade.status}
+                        {trade.status.charAt(0).toUpperCase() + trade.status.slice(1)}
                       </span>
                     </td>
                   </tr>
