@@ -1,13 +1,23 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/db';
 
-export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+
+const LAMBDA_URL = 'https://pu3qevb4iuuqqhgjgzswmmgkxe0xzmkq.lambda-url.us-east-1.on.aws/';
 
 export async function GET() {
   try {
-    const result = await pool.query('SELECT * FROM bot_config WHERE id = 1');
-    return NextResponse.json(result.rows[0]);
+    const response = await fetch(LAMBDA_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ symbol: 'SPXW', adminAction: 'getConfig' })
+    });
+    
+    const result = await response.json();
+    if (!result.success) {
+      return NextResponse.json({ error: result.error }, { status: 500 });
+    }
+    
+    return NextResponse.json(result.data);
   } catch (error) {
     console.error('Error fetching SPX config:', error);
     return NextResponse.json({ error: 'Failed to fetch config' }, { status: 500 });
@@ -17,17 +27,8 @@ export async function GET() {
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
-    const { is_enabled, current_level, min_delta, max_delta } = body;
-
-    const result = await pool.query(
-      `UPDATE bot_config 
-       SET is_enabled = $1, current_level = $2, min_delta = $3, max_delta = $4, updated_at = NOW() 
-       WHERE id = 1 
-       RETURNING *`,
-      [is_enabled, current_level, min_delta, max_delta]
-    );
-
-    return NextResponse.json(result.rows[0]);
+    // TODO: Implement config update via Lambda
+    return NextResponse.json({ error: 'Not implemented' }, { status: 501 });
   } catch (error) {
     console.error('Error updating SPX config:', error);
     return NextResponse.json({ error: 'Failed to update config' }, { status: 500 });

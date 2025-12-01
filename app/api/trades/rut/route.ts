@@ -1,28 +1,26 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/db';
 
-export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+
+const LAMBDA_URL = 'https://pu3qevb4iuuqqhgjgzswmmgkxe0xzmkq.lambda-url.us-east-1.on.aws/';
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const limit = searchParams.get('limit') || '50';
-    const status = searchParams.get('status');
+    const limit = parseInt(searchParams.get('limit') || '50');
 
-    let query = 'SELECT * FROM trade_alert_rut';
-    const params: any[] = [];
-
-    if (status) {
-      query += ' WHERE status = $1';
-      params.push(status);
+    const response = await fetch(LAMBDA_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ symbol: 'RUT', adminAction: 'getTrades', limit })
+    });
+    
+    const result = await response.json();
+    if (!result.success) {
+      return NextResponse.json({ error: result.error }, { status: 500 });
     }
-
-    query += ' ORDER BY created_at DESC LIMIT $' + (params.length + 1);
-    params.push(limit);
-
-    const result = await pool.query(query, params);
-    return NextResponse.json(result.rows);
+    
+    return NextResponse.json(result.data || []);
   } catch (error) {
     console.error('Error fetching RUT trades:', error);
     return NextResponse.json({ error: 'Failed to fetch trades' }, { status: 500 });
