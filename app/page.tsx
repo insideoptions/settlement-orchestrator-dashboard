@@ -58,6 +58,19 @@ export default function Dashboard() {
         fetch(`/api/trades/${activeTab}?limit=10`)
       ]);
 
+      if (!statsRes.ok || !configRes.ok || !tradesRes.ok) {
+        console.error('API Error:', {
+          stats: statsRes.status,
+          config: configRes.status,
+          trades: tradesRes.status
+        });
+        setStats({ total_trades: 0, open_trades: 0, closed_trades: 0, total_pnl: 0, win_rate: 0, avg_win: 0, avg_loss: 0 });
+        setConfig({ current_level: 'N/A', is_enabled: false, min_delta: 0, max_delta: 0 });
+        setTrades([]);
+        setLoading(false);
+        return;
+      }
+
       const [statsData, configData, tradesData] = await Promise.all([
         statsRes.json(),
         configRes.json(),
@@ -66,9 +79,12 @@ export default function Dashboard() {
 
       setStats(statsData);
       setConfig(configData);
-      setTrades(tradesData);
+      setTrades(Array.isArray(tradesData) ? tradesData : []);
     } catch (error) {
       console.error('Error fetching data:', error);
+      setStats({ total_trades: 0, open_trades: 0, closed_trades: 0, total_pnl: 0, win_rate: 0, avg_win: 0, avg_loss: 0 });
+      setConfig({ current_level: 'N/A', is_enabled: false, min_delta: 0, max_delta: 0 });
+      setTrades([]);
     } finally {
       setLoading(false);
     }
