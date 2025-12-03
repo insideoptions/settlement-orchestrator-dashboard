@@ -51,7 +51,7 @@ export default function LoginPage() {
             <h1 className="text-4xl font-black text-[#F4D03F] mb-2" style={{ textShadow: '3px 3px 0px #C0392B' }}>
               GO.ALGO
             </h1>
-            <p className="text-[#ECF0F1] text-sm font-semibold">BARREL BLAST TRADING</p>
+            <p className="text-[#ECF0F1] text-sm font-semibold">🍌 BARREL BLAST TRADING 🍌</p>
           </div>
 
           {/* Pixelated divider */}
