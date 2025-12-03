@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { Settings, LogOut } from 'lucide-react';
-import { useSession, signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 
 interface Stats {
   total_trades: number;
@@ -43,8 +41,6 @@ interface Trade {
 }
 
 export default function Dashboard() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
   const [activeTab, setActiveTab] = useState<'spx' | 'rut'>('spx');
   const [stats, setStats] = useState<Stats | null>(null);
   const [config, setConfig] = useState<Config | null>(null);
@@ -52,18 +48,10 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
-    }
-  }, [status, router]);
-
-  useEffect(() => {
-    if (status === 'authenticated') {
-      fetchData();
-      const interval = setInterval(fetchData, 30000);
-      return () => clearInterval(interval);
-    }
-  }, [activeTab, status]);
+    fetchData();
+    const interval = setInterval(fetchData, 30000);
+    return () => clearInterval(interval);
+  }, [activeTab]);
 
   const fetchData = async () => {
     try {
@@ -136,13 +124,6 @@ export default function Dashboard() {
               </div>
               <button className="p-2 hover:bg-slate-800 rounded-lg transition-colors">
                 <Settings className="w-5 h-5 text-slate-400" />
-              </button>
-              <button 
-                onClick={() => signOut({ callbackUrl: '/login' })}
-                className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
-                title="Sign Out"
-              >
-                <LogOut className="w-5 h-5 text-slate-400" />
               </button>
             </div>
           </div>
