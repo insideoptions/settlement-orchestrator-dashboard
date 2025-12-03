@@ -238,14 +238,14 @@ export default function Dashboard() {
               <thead>
                 <tr className="border-b border-slate-700">
                   <th className="text-left text-slate-400 text-sm font-semibold pb-3">Date</th>
-                  <th className="text-right text-slate-400 text-sm font-semibold pb-3">SPX Entry</th>
+                  <th className="text-right text-slate-400 text-sm font-semibold pb-3">{activeTab.toUpperCase()} Entry</th>
                   <th className="text-center text-slate-400 text-sm font-semibold pb-3">Deltas</th>
                   <th className="text-center text-slate-400 text-sm font-semibold pb-3">Level</th>
                   <th className="text-center text-slate-400 text-sm font-semibold pb-3">Expiration</th>
                   <th className="text-center text-slate-400 text-sm font-semibold pb-3">Call Strikes</th>
                   <th className="text-center text-slate-400 text-sm font-semibold pb-3">Put Strikes</th>
                   <th className="text-center text-slate-400 text-sm font-semibold pb-3">Status</th>
-                  <th className="text-right text-slate-400 text-sm font-semibold pb-3">SPX Settlement</th>
+                  <th className="text-right text-slate-400 text-sm font-semibold pb-3">{activeTab.toUpperCase()} Settlement</th>
                 </tr>
               </thead>
               <tbody>
