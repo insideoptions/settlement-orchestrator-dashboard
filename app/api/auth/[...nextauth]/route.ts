@@ -1,9 +1,9 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
 const ALLOWED_EMAIL = "michael@insideoptions.io";
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GoogleProvider({
@@ -27,6 +27,9 @@ const handler = NextAuth({
     signIn: "/login",
     error: "/login",
   },
-});
+  debug: true, // Enable debug mode to see errors
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
