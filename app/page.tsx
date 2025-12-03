@@ -14,10 +14,10 @@ interface Stats {
 }
 
 interface Config {
-  current_level: string;
-  is_enabled: boolean;
-  min_delta: number;
-  max_delta: number;
+  CurrentLevel: string;
+  IsEnabled: boolean;
+  DeltaMin: number;
+  DeltaMax: number;
 }
 
 interface Trade {
@@ -63,7 +63,7 @@ export default function Dashboard() {
 
       if (!statsRes.ok || !configRes.ok || !tradesRes.ok) {
         setStats({ total_trades: 0, open_trades: 0, closed_trades: 0, total_pnl: 0, win_rate: 0, avg_win: 0, avg_loss: 0 });
-        setConfig({ current_level: 'N/A', is_enabled: false, min_delta: 0, max_delta: 0 });
+        setConfig({ CurrentLevel: 'N/A', IsEnabled: false, DeltaMin: 0, DeltaMax: 0 });
         setTrades([]);
         setLoading(false);
         return;
@@ -160,21 +160,21 @@ export default function Dashboard() {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-4 gap-4 mb-6">
-          <div className="bg-[#1a2332] rounded-lg p-4 border border-slate-800">
-            <div className="text-slate-500 text-xs mb-1">Total Iron Condors</div>
-            <div className="text-white text-2xl font-bold">{stats?.total_trades || 0}</div>
+          <div className="bg-gradient-to-br from-[#1a2332] to-[#151d2a] rounded-lg p-4 border border-slate-800 hover:border-slate-600 hover:shadow-lg hover:shadow-slate-900/50 transition-all duration-300 group">
+            <div className="text-slate-500 text-xs mb-1 group-hover:text-slate-400 transition-colors">Total Iron Condors</div>
+            <div className="text-white text-2xl font-bold group-hover:scale-105 transition-transform">{stats?.total_trades || 0}</div>
           </div>
-          <div className="bg-[#1a2332] rounded-lg p-4 border border-slate-800">
-            <div className="text-slate-500 text-xs mb-1">Current Level</div>
-            <div className="text-blue-400 text-2xl font-bold">{config?.current_level || 'N/A'}</div>
+          <div className="bg-gradient-to-br from-[#1a2332] to-[#151d2a] rounded-lg p-4 border border-slate-800 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-900/30 transition-all duration-300 group">
+            <div className="text-slate-500 text-xs mb-1 group-hover:text-blue-400 transition-colors">Current Level</div>
+            <div className="text-blue-400 text-2xl font-bold group-hover:text-blue-300 group-hover:scale-105 transition-all">{config?.CurrentLevel || 'N/A'}</div>
           </div>
-          <div className="bg-[#1a2332] rounded-lg p-4 border border-slate-800">
-            <div className="text-slate-500 text-xs mb-1">Open Trades</div>
-            <div className="text-white text-2xl font-bold">{stats?.open_trades || 0}</div>
+          <div className="bg-gradient-to-br from-[#1a2332] to-[#151d2a] rounded-lg p-4 border border-slate-800 hover:border-yellow-500/50 hover:shadow-lg hover:shadow-yellow-900/30 transition-all duration-300 group">
+            <div className="text-slate-500 text-xs mb-1 group-hover:text-yellow-400 transition-colors">Open Trades</div>
+            <div className="text-white text-2xl font-bold group-hover:text-yellow-400 group-hover:scale-105 transition-all">{stats?.open_trades || 0}</div>
           </div>
-          <div className="bg-[#1a2332] rounded-lg p-4 border border-slate-800">
-            <div className="text-slate-500 text-xs mb-1">Last {activeTab.toUpperCase()} Close</div>
-            <div className="text-purple-400 text-2xl font-bold">{lastClose.toFixed(2)}</div>
+          <div className="bg-gradient-to-br from-[#1a2332] to-[#151d2a] rounded-lg p-4 border border-slate-800 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-900/30 transition-all duration-300 group">
+            <div className="text-slate-500 text-xs mb-1 group-hover:text-purple-400 transition-colors">Last {activeTab.toUpperCase()} Close</div>
+            <div className="text-purple-400 text-2xl font-bold group-hover:text-purple-300 group-hover:scale-105 transition-all">{lastClose.toFixed(2)}</div>
           </div>
         </div>
 
