@@ -86,13 +86,6 @@ export default function LoginPage() {
             )}
           </button>
 
-          {/* Authorized user notice */}
-          <div className="mt-6 text-center">
-            <div className="inline-block bg-[#F4D03F] px-4 py-2 rounded-lg border-2 border-[#E74C3C]">
-              <p className="text-[#2C3E50] text-xs font-bold">🍌 AUTHORIZED KONG ONLY 🍌</p>
-            </div>
-          </div>
-
           {/* Pixelated footer */}
           <div className="mt-8 flex justify-center gap-1">
             {[...Array(15)].map((_, i) => (
