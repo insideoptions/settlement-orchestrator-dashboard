@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Settings, LogOut } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface Stats {
   total_trades: number;
@@ -41,6 +42,7 @@ interface Trade {
 }
 
 export default function Dashboard() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<'spx' | 'rut'>('spx');
   const [stats, setStats] = useState<Stats | null>(null);
   const [config, setConfig] = useState<Config | null>(null);
@@ -101,6 +103,12 @@ export default function Dashboard() {
     );
   }
 
+  const handleLogout = async () => {
+    await fetch('/api/auth/logout', { method: 'POST' });
+    router.push('/login');
+    router.refresh();
+  };
+
   const lastClose = trades.length > 0 && trades[0].entry_price ? trades[0].entry_price : 0;
 
   return (
@@ -124,6 +132,13 @@ export default function Dashboard() {
               </div>
               <button className="p-2 hover:bg-slate-800 rounded-lg transition-colors">
                 <Settings className="w-5 h-5 text-slate-400" />
+              </button>
+              <button 
+                onClick={handleLogout}
+                className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
+                title="Logout"
+              >
+                <LogOut className="w-5 h-5 text-slate-400" />
               </button>
             </div>
           </div>
