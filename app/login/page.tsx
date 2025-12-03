@@ -41,11 +41,11 @@ export default function LoginPage() {
       {/* Login Container */}
       <div className="flex items-center justify-center min-h-screen relative z-10">
         <div className="bg-gradient-to-br from-[#2C3E50] to-[#34495E] rounded-2xl shadow-2xl p-12 border-8 border-[#E74C3C] max-w-md w-full transform hover:scale-105 transition-transform duration-300">
-          {/* DK Logo Area */}
+          {/* IO Logo Area */}
           <div className="text-center mb-8">
             <div className="inline-block bg-[#E74C3C] rounded-full p-6 mb-4 shadow-lg">
               <div className="text-6xl font-black text-[#F4D03F] tracking-wider" style={{ textShadow: '4px 4px 0px #C0392B' }}>
-                DK
+                IO
               </div>
             </div>
             <h1 className="text-4xl font-black text-[#F4D03F] mb-2" style={{ textShadow: '3px 3px 0px #C0392B' }}>
