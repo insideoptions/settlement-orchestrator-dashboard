@@ -274,7 +274,7 @@ export default function AdminPanel() {
                             <input
                               type="number"
                               step="0.01"
-                              value={displayTrade.entry_price}
+                              value={displayTrade.entry_price || ''}
                               onChange={(e) => updateField('entry_price', parseFloat(e.target.value))}
                               className="w-24 px-2 py-1 bg-slate-700 text-white rounded border border-slate-600 text-sm"
                             />
@@ -288,7 +288,7 @@ export default function AdminPanel() {
                               <input
                                 type="number"
                                 step="1"
-                                value={displayTrade.call_buy_strike}
+                                value={displayTrade.call_buy_strike || ''}
                                 onChange={(e) => updateField('call_buy_strike', parseFloat(e.target.value))}
                                 className="w-20 px-2 py-1 bg-slate-700 text-white rounded border border-slate-600 text-sm"
                                 placeholder="Buy"
@@ -296,7 +296,7 @@ export default function AdminPanel() {
                               <input
                                 type="number"
                                 step="1"
-                                value={displayTrade.call_sell_strike}
+                                value={displayTrade.call_sell_strike || ''}
                                 onChange={(e) => updateField('call_sell_strike', parseFloat(e.target.value))}
                                 className="w-20 px-2 py-1 bg-slate-700 text-white rounded border border-slate-600 text-sm"
                                 placeholder="Sell"
@@ -314,7 +314,7 @@ export default function AdminPanel() {
                               <input
                                 type="number"
                                 step="1"
-                                value={displayTrade.put_sell_strike}
+                                value={displayTrade.put_sell_strike || ''}
                                 onChange={(e) => updateField('put_sell_strike', parseFloat(e.target.value))}
                                 className="w-20 px-2 py-1 bg-slate-700 text-white rounded border border-slate-600 text-sm"
                                 placeholder="Sell"
@@ -322,7 +322,7 @@ export default function AdminPanel() {
                               <input
                                 type="number"
                                 step="1"
-                                value={displayTrade.put_buy_strike}
+                                value={displayTrade.put_buy_strike || ''}
                                 onChange={(e) => updateField('put_buy_strike', parseFloat(e.target.value))}
                                 className="w-20 px-2 py-1 bg-slate-700 text-white rounded border border-slate-600 text-sm"
                                 placeholder="Buy"
@@ -339,7 +339,7 @@ export default function AdminPanel() {
                             <input
                               type="number"
                               step="0.01"
-                              value={displayTrade.credit}
+                              value={displayTrade.credit || ''}
                               onChange={(e) => updateField('credit', parseFloat(e.target.value))}
                               className="w-20 px-2 py-1 bg-slate-700 text-white rounded border border-slate-600 text-sm"
                             />
