@@ -276,7 +276,7 @@ export default function AdminPanel() {
                               className="w-24 px-2 py-1 bg-slate-700 text-white rounded border border-slate-600 text-sm"
                             />
                           ) : (
-                            <span className="text-slate-300 text-sm">{trade.entry_price.toFixed(2)}</span>
+                            <span className="text-slate-300 text-sm">{trade.entry_price ? trade.entry_price.toFixed(2) : '-'}</span>
                           )}
                         </td>
                         <td className="px-4 py-3">
@@ -341,7 +341,7 @@ export default function AdminPanel() {
                               className="w-20 px-2 py-1 bg-slate-700 text-white rounded border border-slate-600 text-sm"
                             />
                           ) : (
-                            <span className="text-slate-300 text-sm">${trade.credit.toFixed(2)}</span>
+                            <span className="text-slate-300 text-sm">${trade.credit ? trade.credit.toFixed(2) : '0.00'}</span>
                           )}
                         </td>
                         <td className="px-4 py-3">
