@@ -55,15 +55,27 @@ export default function AdminPanel() {
 
       if (tradesRes.ok) {
         const tradesData = await tradesRes.json();
-        setTrades(tradesData);
+        console.log('Trades data:', tradesData);
+        // Ensure tradesData is an array
+        setTrades(Array.isArray(tradesData) ? tradesData : []);
+      } else {
+        console.error('Trades API failed:', tradesRes.status);
+        setTrades([]);
       }
 
       if (configsRes.ok) {
         const configsData = await configsRes.json();
-        setConfigs(configsData);
+        console.log('Configs data:', configsData);
+        // Ensure configsData is an array
+        setConfigs(Array.isArray(configsData) ? configsData : []);
+      } else {
+        console.error('Config API failed:', configsRes.status);
+        setConfigs([]);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
+      setTrades([]);
+      setConfigs([]);
     } finally {
       setLoading(false);
     }
@@ -249,6 +261,11 @@ export default function AdminPanel() {
                   </tr>
                 ) : (
                   trades.map((trade) => {
+                    if (!trade || !trade.id) {
+                      console.error('Invalid trade data:', trade);
+                      return null;
+                    }
+                    
                     const isEditing = editingTrade === trade.id;
                     const displayTrade = isEditing ? { ...trade, ...editedTrade } : trade;
 
