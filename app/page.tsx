@@ -190,7 +190,7 @@ export default function Dashboard() {
           </div>
           <div className="bg-gradient-to-br from-[#1a2332] to-[#151d2a] rounded-lg p-4 border border-slate-800 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-900/30 transition-all duration-300 group">
             <div className="text-slate-500 text-xs mb-1 group-hover:text-purple-400 transition-colors">Last {activeTab.toUpperCase()} Close</div>
-            <div className="text-purple-400 text-2xl font-bold group-hover:text-purple-300 group-hover:scale-105 transition-all">{lastClose.toFixed(2)}</div>
+            <div className="text-purple-400 text-2xl font-bold group-hover:text-purple-300 group-hover:scale-105 transition-all">{lastClose ? lastClose.toFixed(2) : '-'}</div>
           </div>
         </div>
 
