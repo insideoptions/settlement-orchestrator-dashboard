@@ -130,7 +130,11 @@ export default function Dashboard() {
                 <span className="text-green-500 text-sm font-semibold">BOT ACTIVE</span>
                 <span className="text-slate-500 text-xs ml-2">Last check: {new Date().toLocaleTimeString()}</span>
               </div>
-              <button className="p-2 hover:bg-slate-800 rounded-lg transition-colors">
+              <button 
+                onClick={() => router.push('/admin')}
+                className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
+                title="Admin Panel"
+              >
                 <Settings className="w-5 h-5 text-slate-400" />
               </button>
               <button 
