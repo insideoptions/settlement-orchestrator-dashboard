@@ -259,11 +259,15 @@ export default function Dashboard() {
                       <span className={`px-3 py-1 rounded text-xs font-semibold ${
                         trade.status === 'open' 
                           ? 'bg-yellow-600/20 text-yellow-500' 
-                          : trade.pnl && trade.pnl > 0
+                          : trade.status === 'Max Win'
                           ? 'bg-green-600/20 text-green-500'
+                          : trade.status === 'Partial Win'
+                          ? 'bg-green-600/20 text-green-500'
+                          : trade.status === 'Partial Loss'
+                          ? 'bg-orange-600/20 text-orange-500'
                           : 'bg-red-600/20 text-red-500'
                       }`}>
-                        {trade.status === 'open' ? 'Open' : trade.pnl && trade.pnl > 0 ? 'Max Win' : 'Max Loss'}
+                        {trade.status === 'open' ? 'Open' : trade.status}
                       </span>
                     </td>
                     <td className="px-4 py-4 text-right text-white font-semibold">
