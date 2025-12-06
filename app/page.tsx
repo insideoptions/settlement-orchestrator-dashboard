@@ -79,15 +79,7 @@ export default function Dashboard() {
 
       setStats(statsData);
       setConfig(configData);
-      
-      const processedTrades = (tradesData || []).map((trade: Trade, index: number) => {
-        if (index === 0) {
-          return trade;
-        }
-        return { ...trade, status: 'closed' };
-      });
-      
-      setTrades(processedTrades);
+      setTrades(tradesData || []);
       setLoading(false);
     } catch (error) {
       console.error('Failed to fetch data:', error);
