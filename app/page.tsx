@@ -107,20 +107,19 @@ export default function Dashboard() {
     <div className="min-h-screen bg-[#0f1419]">
       {/* Header */}
       <div className="border-b border-slate-800">
-        <div className="max-w-[1400px] mx-auto px-6 py-4">
+        <div className="max-w-[1400px] mx-auto px-3 md:px-6 py-3 md:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">G</span>
               </div>
-              <h1 className="text-2xl font-bold text-white">GO.ALGO</h1>
+              <h1 className="text-xl md:text-2xl font-bold text-white">GO.ALGO</h1>
             </div>
             
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 bg-[#1a2332] px-4 py-2 rounded-lg border border-slate-700">
+            <div className="flex items-center gap-2 md:gap-4">
+              <div className="hidden sm:flex items-center gap-2 bg-[#1a2332] px-3 md:px-4 py-1.5 md:py-2 rounded-lg border border-slate-700">
                 <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                <span className="text-green-500 text-sm font-semibold">BOT ACTIVE</span>
-                <span className="text-slate-500 text-xs ml-2">Last check: {new Date().toLocaleTimeString()}</span>
+                <span className="text-green-500 text-xs md:text-sm font-semibold">ACTIVE</span>
               </div>
               <button 
                 onClick={() => router.push('/admin')}
@@ -141,7 +140,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-6 py-6">
+      <div className="max-w-[1400px] mx-auto px-3 md:px-6 py-4 md:py-6">
         {/* Tabs */}
         <div className="flex gap-2 mb-6">
           <button
@@ -167,31 +166,32 @@ export default function Dashboard() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-4 gap-4 mb-6">
-          <div className="bg-gradient-to-br from-[#1a2332] to-[#151d2a] rounded-lg p-4 border border-slate-800 hover:border-slate-600 hover:shadow-lg hover:shadow-slate-900/50 transition-all duration-300 group">
-            <div className="text-slate-500 text-xs mb-1 group-hover:text-slate-400 transition-colors">Total Iron Condors</div>
-            <div className="text-white text-2xl font-bold group-hover:scale-105 transition-transform">{stats?.total_trades || 0}</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6">
+          <div className="bg-gradient-to-br from-[#1a2332] to-[#151d2a] rounded-lg p-3 md:p-4 border border-slate-800 hover:border-slate-600 hover:shadow-lg hover:shadow-slate-900/50 transition-all duration-300 group">
+            <div className="text-slate-500 text-[10px] md:text-xs mb-1 group-hover:text-slate-400 transition-colors">Total Condors</div>
+            <div className="text-white text-xl md:text-2xl font-bold group-hover:scale-105 transition-transform">{stats?.total_trades || 0}</div>
           </div>
-          <div className="bg-gradient-to-br from-[#1a2332] to-[#151d2a] rounded-lg p-4 border border-slate-800 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-900/30 transition-all duration-300 group">
-            <div className="text-slate-500 text-xs mb-1 group-hover:text-blue-400 transition-colors">Current Level</div>
-            <div className="text-blue-400 text-2xl font-bold group-hover:text-blue-300 group-hover:scale-105 transition-all">{config?.CurrentLevel || 'N/A'}</div>
+          <div className="bg-gradient-to-br from-[#1a2332] to-[#151d2a] rounded-lg p-3 md:p-4 border border-slate-800 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-900/30 transition-all duration-300 group">
+            <div className="text-slate-500 text-[10px] md:text-xs mb-1 group-hover:text-blue-400 transition-colors">Current Level</div>
+            <div className="text-blue-400 text-xl md:text-2xl font-bold group-hover:text-blue-300 group-hover:scale-105 transition-all">{config?.CurrentLevel || 'N/A'}</div>
           </div>
-          <div className="bg-gradient-to-br from-[#1a2332] to-[#151d2a] rounded-lg p-4 border border-slate-800 hover:border-yellow-500/50 hover:shadow-lg hover:shadow-yellow-900/30 transition-all duration-300 group">
-            <div className="text-slate-500 text-xs mb-1 group-hover:text-yellow-400 transition-colors">Open Trades</div>
-            <div className="text-white text-2xl font-bold group-hover:text-yellow-400 group-hover:scale-105 transition-all">{stats?.open_trades || 0}</div>
+          <div className="bg-gradient-to-br from-[#1a2332] to-[#151d2a] rounded-lg p-3 md:p-4 border border-slate-800 hover:border-yellow-500/50 hover:shadow-lg hover:shadow-yellow-900/30 transition-all duration-300 group">
+            <div className="text-slate-500 text-[10px] md:text-xs mb-1 group-hover:text-yellow-400 transition-colors">Open Trades</div>
+            <div className="text-white text-xl md:text-2xl font-bold group-hover:text-yellow-400 group-hover:scale-105 transition-all">{stats?.open_trades || 0}</div>
           </div>
-          <div className="bg-gradient-to-br from-[#1a2332] to-[#151d2a] rounded-lg p-4 border border-slate-800 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-900/30 transition-all duration-300 group">
-            <div className="text-slate-500 text-xs mb-1 group-hover:text-purple-400 transition-colors">Last {activeTab.toUpperCase()} Close</div>
-            <div className="text-purple-400 text-2xl font-bold group-hover:text-purple-300 group-hover:scale-105 transition-all">{lastClose ? lastClose.toFixed(2) : '-'}</div>
+          <div className="bg-gradient-to-br from-[#1a2332] to-[#151d2a] rounded-lg p-3 md:p-4 border border-slate-800 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-900/30 transition-all duration-300 group">
+            <div className="text-slate-500 text-[10px] md:text-xs mb-1 group-hover:text-purple-400 transition-colors">Last Close</div>
+            <div className="text-purple-400 text-xl md:text-2xl font-bold group-hover:text-purple-300 group-hover:scale-105 transition-all">{lastClose ? lastClose.toFixed(2) : '-'}</div>
           </div>
         </div>
 
         {/* Trade Alerts Table */}
         <div className="bg-[#1a2332] rounded-lg border border-slate-800">
-          <div className="p-4 border-b border-slate-800">
-            <h2 className="text-white text-lg font-bold">Trade Alerts</h2>
+          <div className="p-3 md:p-4 border-b border-slate-800">
+            <h2 className="text-white text-base md:text-lg font-bold">Trade Alerts</h2>
           </div>
-          <div className="overflow-x-auto">
+          {/* Desktop Table */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-slate-800">
@@ -269,6 +269,56 @@ export default function Dashboard() {
                 ))}
               </tbody>
             </table>
+          </div>
+          {/* Mobile Cards */}
+          <div className="md:hidden">
+            {trades.map((trade) => (
+              <div key={trade.id} className="border-b border-slate-800/50 p-3 hover:bg-slate-800/30 transition-colors">
+                <div className="flex justify-between items-start mb-2">
+                  <div>
+                    <div className="text-white text-sm font-semibold">{new Date(trade.created_at).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' })}</div>
+                    <div className="text-slate-400 text-xs">Entry: {trade.entry_price ? trade.entry_price.toFixed(2) : '-'}</div>
+                  </div>
+                  <span className={`px-2 py-1 rounded text-[10px] font-semibold whitespace-nowrap ${
+                    trade.level.includes('1.') ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' :
+                    trade.level === 'Level 2' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30' :
+                    trade.level === 'Level 3' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' :
+                    trade.level === 'Level 4' ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30' :
+                    'bg-red-500/20 text-red-400 border border-red-500/30'
+                  }`}>
+                    {trade.level}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-2 mb-2">
+                  <div>
+                    <div className="text-slate-500 text-[10px] mb-0.5">CALL</div>
+                    <div className="text-green-500 text-xs">{trade.call_sell_strike}/{trade.call_buy_strike}</div>
+                  </div>
+                  <div>
+                    <div className="text-slate-500 text-[10px] mb-0.5">PUT</div>
+                    <div className="text-red-500 text-xs">{trade.put_sell_strike}/{trade.put_buy_strike}</div>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className={`px-2 py-0.5 rounded text-[10px] font-semibold ${
+                    trade.status === 'open' 
+                      ? 'bg-yellow-600/20 text-yellow-500' 
+                      : trade.status === 'Max Win'
+                      ? 'bg-green-600/20 text-green-500'
+                      : trade.status === 'Partial Win'
+                      ? 'bg-green-600/20 text-green-500'
+                      : trade.status === 'Partial Loss'
+                      ? 'bg-orange-600/20 text-orange-500'
+                      : 'bg-red-600/20 text-red-500'
+                  }`}>
+                    {trade.status === 'open' ? 'Open' : trade.status}
+                  </span>
+                  <div className="text-slate-400 text-xs">
+                    {trade.settlement_price ? `Settled: ${trade.settlement_price.toFixed(2)}` : 'Exp: ' + new Date(trade.expiration).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' })}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
