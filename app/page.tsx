@@ -292,11 +292,17 @@ export default function Dashboard() {
                 <div className="grid grid-cols-2 gap-2 mb-2">
                   <div>
                     <div className="text-slate-500 text-[10px] mb-0.5">CALL</div>
-                    <div className="text-green-500 text-xs">{trade.call_sell_strike}/{trade.call_buy_strike}</div>
+                    <div className="text-green-500 text-xs">
+                      <div>Sell: {trade.call_sell_strike}</div>
+                      <div>Buy: {trade.call_buy_strike}</div>
+                    </div>
                   </div>
                   <div>
                     <div className="text-slate-500 text-[10px] mb-0.5">PUT</div>
-                    <div className="text-red-500 text-xs">{trade.put_sell_strike}/{trade.put_buy_strike}</div>
+                    <div className="text-red-500 text-xs">
+                      <div>Sell: {trade.put_sell_strike}</div>
+                      <div>Buy: {trade.put_buy_strike}</div>
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
