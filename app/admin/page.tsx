@@ -168,36 +168,36 @@ export default function AdminPanel() {
   const currentConfig = configs.find(c => c.symbol === selectedSymbol);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-3 md:p-8">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-4 md:mb-8">
           <div>
-            <h1 className="text-4xl font-bold text-white">Admin Panel</h1>
-            <p className="text-slate-400 text-sm mt-1">v1.0.1</p>
+            <h1 className="text-2xl md:text-4xl font-bold text-white">Admin Panel</h1>
+            <p className="text-slate-400 text-xs md:text-sm mt-1">v1.0.1</p>
           </div>
           <button
             onClick={() => router.push('/')}
-            className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors"
+            className="px-3 md:px-4 py-2 text-sm md:text-base bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors"
           >
-            Back to Dashboard
+            ← Back
           </button>
         </div>
 
         {/* Symbol Selector */}
-        <div className="flex gap-4 mb-6">
+        <div className="flex gap-2 md:gap-4 mb-4 md:mb-6">
           <button
             onClick={() => setSelectedSymbol('SPXW')}
-            className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+            className={`px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded-lg font-semibold transition-colors ${
               selectedSymbol === 'SPXW'
                 ? 'bg-blue-600 text-white'
                 : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
             }`}
           >
-            Short SPX
+            SPX
           </button>
           <button
             onClick={() => setSelectedSymbol('RUT')}
-            className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+            className={`px-4 md:px-6 py-2 md:py-3 text-sm md:text-base rounded-lg font-semibold transition-colors ${
               selectedSymbol === 'RUT'
                 ? 'bg-blue-600 text-white'
                 : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
@@ -209,15 +209,15 @@ export default function AdminPanel() {
 
         {/* Bot Level Editor */}
         {currentConfig && (
-          <div className="bg-slate-800 rounded-lg p-6 mb-6">
-            <h2 className="text-xl font-bold text-white mb-4">Bot Configuration</h2>
-            <div className="flex items-center gap-4">
-              <label className="text-slate-300">Current Level:</label>
+          <div className="bg-slate-800 rounded-lg p-4 md:p-6 mb-4 md:mb-6">
+            <h2 className="text-lg md:text-xl font-bold text-white mb-3 md:mb-4">Bot Configuration</h2>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4">
+              <label className="text-slate-300 text-sm md:text-base">Current Level:</label>
               <input
                 type="text"
                 value={currentConfig.current_level}
                 onChange={(e) => updateBotLevel(selectedSymbol, e.target.value)}
-                className="px-4 py-2 bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-blue-500 focus:outline-none"
+                className="px-3 md:px-4 py-2 text-sm md:text-base bg-slate-700 text-white rounded-lg border border-slate-600 focus:border-blue-500 focus:outline-none w-full sm:w-auto"
               />
               <span className={`px-3 py-1 rounded-full text-sm ${
                 currentConfig.enabled ? 'bg-green-600' : 'bg-red-600'
@@ -230,7 +230,8 @@ export default function AdminPanel() {
 
         {/* Trades Table */}
         <div className="bg-slate-800 rounded-lg overflow-hidden">
-          <div className="overflow-x-auto">
+          {/* Desktop Table */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
               <thead className="bg-slate-700">
                 <tr>
@@ -455,6 +456,81 @@ export default function AdminPanel() {
                 )}
               </tbody>
             </table>
+          </div>
+          
+          {/* Mobile Cards */}
+          <div className="md:hidden p-3">
+            {loading ? (
+              <div className="text-center text-slate-400 py-8">Loading...</div>
+            ) : trades.length === 0 ? (
+              <div className="text-center text-slate-400 py-8">No trades found</div>
+            ) : (
+              <div className="space-y-3">
+                {trades.map((trade) => {
+                  if (!trade || !trade.id) return null;
+                  return (
+                    <div key={trade.id} className="bg-slate-700 rounded-lg p-3">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <div className="text-white font-semibold text-sm">{new Date(trade.created_at).toLocaleDateString()}</div>
+                          <div className="text-blue-400 text-xs">{trade.level}</div>
+                        </div>
+                        <span className={`px-2 py-1 rounded-full text-[10px] ${
+                          trade.status === 'open' ? 'bg-green-600' : 'bg-slate-600'
+                        } text-white`}>
+                          {trade.status}
+                        </span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 text-xs mb-2">
+                        <div>
+                          <div className="text-slate-400">Entry</div>
+                          <div className="text-white">{trade.entry_price ? trade.entry_price.toFixed(2) : '-'}</div>
+                        </div>
+                        <div>
+                          <div className="text-slate-400">Credit</div>
+                          <div className="text-white">${trade.credit ? trade.credit.toFixed(2) : '0.00'}</div>
+                        </div>
+                        <div>
+                          <div className="text-slate-400">CALL</div>
+                          <div className="text-green-400">{trade.call_buy_strike}/{trade.call_sell_strike}</div>
+                        </div>
+                        <div>
+                          <div className="text-slate-400">PUT</div>
+                          <div className="text-red-400">{trade.put_sell_strike}/{trade.put_buy_strike}</div>
+                        </div>
+                        <div>
+                          <div className="text-slate-400">Settlement</div>
+                          <div className="text-white">{trade.settlement_price ? trade.settlement_price.toFixed(2) : '-'}</div>
+                        </div>
+                        <div>
+                          <div className="text-slate-400">P&L</div>
+                          <div className={`font-semibold ${
+                            trade.pnl === null ? 'text-slate-400' :
+                            trade.pnl > 0 ? 'text-green-400' : 'text-red-400'
+                          }`}>
+                            {trade.pnl !== null ? `$${trade.pnl.toFixed(2)}` : '-'}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex gap-2 justify-end">
+                        <button
+                          onClick={() => startEditing(trade)}
+                          className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs transition-colors"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => deleteTrade(trade.id)}
+                          className="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-xs transition-colors"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>
