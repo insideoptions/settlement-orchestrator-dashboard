@@ -322,7 +322,7 @@ export default function AdminPanel() {
                             </div>
                           ) : (
                             <span className="text-green-400 text-sm">
-                              {trade.call_buy_strike} / {trade.call_sell_strike}
+                              {trade.call_buy_strike || '-'} / {trade.call_sell_strike || '-'}
                             </span>
                           )}
                         </td>
@@ -348,7 +348,7 @@ export default function AdminPanel() {
                             </div>
                           ) : (
                             <span className="text-red-400 text-sm">
-                              {trade.put_sell_strike} / {trade.put_buy_strike}
+                              {trade.put_sell_strike || '-'} / {trade.put_buy_strike || '-'}
                             </span>
                           )}
                         </td>
@@ -492,11 +492,11 @@ export default function AdminPanel() {
                         </div>
                         <div>
                           <div className="text-slate-400">CALL</div>
-                          <div className="text-green-400">{trade.call_buy_strike}/{trade.call_sell_strike}</div>
+                          <div className="text-green-400">{trade.call_buy_strike || '-'}/{trade.call_sell_strike || '-'}</div>
                         </div>
                         <div>
                           <div className="text-slate-400">PUT</div>
-                          <div className="text-red-400">{trade.put_sell_strike}/{trade.put_buy_strike}</div>
+                          <div className="text-red-400">{trade.put_sell_strike || '-'}/{trade.put_buy_strike || '-'}</div>
                         </div>
                         <div>
                           <div className="text-slate-400">Settlement</div>
