@@ -56,8 +56,11 @@ export default function AdminPanel() {
       if (tradesRes.ok) {
         const tradesData = await tradesRes.json();
         console.log('Trades data:', tradesData);
-        // Ensure tradesData is an array
-        setTrades(Array.isArray(tradesData) ? tradesData : []);
+        // Ensure tradesData is an array and filter out invalid trades
+        const validTrades = Array.isArray(tradesData) 
+          ? tradesData.filter(t => t && t.id) 
+          : [];
+        setTrades(validTrades);
       } else {
         console.error('Trades API failed:', tradesRes.status);
         setTrades([]);
@@ -173,7 +176,7 @@ export default function AdminPanel() {
         <div className="flex items-center justify-between mb-4 md:mb-8">
           <div>
             <h1 className="text-2xl md:text-4xl font-bold text-white">Admin Panel</h1>
-            <p className="text-slate-400 text-xs md:text-sm mt-1">v1.0.1</p>
+            <p className="text-slate-400 text-xs md:text-sm mt-1">v1.0.2</p>
           </div>
           <button
             onClick={() => router.push('/')}
@@ -262,16 +265,17 @@ export default function AdminPanel() {
                   </tr>
                 ) : (
                   trades.map((trade) => {
-                    if (!trade || !trade.id) {
-                      console.error('Invalid trade data:', trade);
-                      return null;
-                    }
-                    
-                    const isEditing = editingTrade === trade.id;
-                    const displayTrade = isEditing ? { ...trade, ...editedTrade } : trade;
+                    try {
+                      if (!trade || !trade.id) {
+                        console.error('Invalid trade data:', trade);
+                        return null;
+                      }
+                      
+                      const isEditing = editingTrade === trade.id;
+                      const displayTrade = isEditing ? { ...trade, ...editedTrade } : trade;
 
-                    return (
-                      <tr key={trade.id} className="hover:bg-slate-750">
+                      return (
+                        <tr key={trade.id} className="hover:bg-slate-750">
                         <td className="px-4 py-3 text-sm text-slate-300">
                           {new Date(trade.created_at).toLocaleDateString()}
                         </td>
@@ -452,6 +456,10 @@ export default function AdminPanel() {
                         </td>
                       </tr>
                     );
+                    } catch (error) {
+                      console.error('Error rendering trade:', trade, error);
+                      return null;
+                    }
                   })
                 )}
               </tbody>
@@ -467,9 +475,10 @@ export default function AdminPanel() {
             ) : (
               <div className="space-y-3">
                 {trades.map((trade) => {
-                  if (!trade || !trade.id) return null;
-                  return (
-                    <div key={trade.id} className="bg-slate-700 rounded-lg p-3">
+                  try {
+                    if (!trade || !trade.id) return null;
+                    return (
+                      <div key={trade.id} className="bg-slate-700 rounded-lg p-3">
                       <div className="flex justify-between items-start mb-2">
                         <div>
                           <div className="text-white font-semibold text-sm">{new Date(trade.created_at).toLocaleDateString()}</div>
@@ -528,6 +537,10 @@ export default function AdminPanel() {
                       </div>
                     </div>
                   );
+                  } catch (error) {
+                    console.error('Error rendering mobile trade card:', trade, error);
+                    return null;
+                  }
                 })}
               </div>
             )}
