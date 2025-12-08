@@ -233,7 +233,7 @@ export default function Dashboard() {
                       </span>
                     </td>
                     <td className="px-4 py-4 text-center text-white text-sm">
-                      {new Date(trade.expiration).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' })}
+                      {trade.expiration.split('T')[0].split('-').slice(1).join('/') + '/' + trade.expiration.split('-')[0]}
                     </td>
                     <td className="px-4 py-4 text-center text-sm">
                       <div className="flex flex-col gap-0.5">
@@ -320,7 +320,7 @@ export default function Dashboard() {
                     {trade.status === 'open' ? 'Open' : trade.status}
                   </span>
                   <div className="text-slate-400 text-xs">
-                    {trade.settlement_price ? `Settled: ${trade.settlement_price.toFixed(2)}` : 'Exp: ' + new Date(trade.expiration).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' })}
+                    {trade.settlement_price ? `Settled: ${trade.settlement_price.toFixed(2)}` : 'Exp: ' + trade.expiration.split('T')[0].split('-').slice(1).join('/')}
                   </div>
                 </div>
               </div>
