@@ -48,8 +48,9 @@ export default function AdminPanel() {
   const fetchData = async () => {
     setLoading(true);
     try {
+      const symbolPath = selectedSymbol === 'SPXW' ? 'spx' : 'rut';
       const [tradesRes, configsRes] = await Promise.all([
-        fetch(`/api/trades?symbol=${selectedSymbol}&limit=20`),
+        fetch(`/api/trades/${symbolPath}?limit=50`),
         fetch('/api/config')
       ]);
 
