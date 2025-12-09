@@ -437,10 +437,19 @@ export default function AdminPanel() {
                             >
                               <option value="open">Open</option>
                               <option value="Closed">Closed</option>
+                              <option value="Max Win">Max Win</option>
+                              <option value="Max Loss">Max Loss</option>
+                              <option value="Partial Win">Partial Win</option>
+                              <option value="Partial Loss">Partial Loss</option>
                             </select>
                           ) : (
                             <span className={`px-2 py-1 rounded-full text-xs ${
-                              trade.status === 'open' ? 'bg-green-600' : 'bg-slate-600'
+                              trade.status === 'open' ? 'bg-yellow-600' : 
+                                        trade.status === 'Max Win' ? 'bg-green-600' :
+                                        trade.status === 'Partial Win' ? 'bg-blue-600' :
+                                        trade.status === 'Max Loss' ? 'bg-red-600' :
+                                        trade.status === 'Partial Loss' ? 'bg-orange-600' :
+                                        'bg-slate-600' 
                             } text-white`}>
                               {trade.status}
                             </span>
@@ -511,7 +520,12 @@ export default function AdminPanel() {
                           <div className="text-blue-400 text-xs">{trade.level}</div>
                         </div>
                         <span className={`px-2 py-1 rounded-full text-[10px] ${
-                          trade.status === 'open' ? 'bg-green-600' : 'bg-slate-600'
+                          trade.status === 'open' ? 'bg-yellow-600' : 
+                                        trade.status === 'Max Win' ? 'bg-green-600' :
+                                        trade.status === 'Partial Win' ? 'bg-blue-600' :
+                                        trade.status === 'Max Loss' ? 'bg-red-600' :
+                                        trade.status === 'Partial Loss' ? 'bg-orange-600' :
+                                        'bg-slate-600' 
                         } text-white`}>
                           {trade.status}
                         </span>
