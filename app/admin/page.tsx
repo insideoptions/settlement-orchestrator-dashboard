@@ -177,7 +177,7 @@ export default function AdminPanel() {
         <div className="flex items-center justify-between mb-4 md:mb-8">
           <div>
             <h1 className="text-2xl md:text-4xl font-bold text-white">Admin Panel</h1>
-            <p className="text-slate-400 text-xs md:text-sm mt-1">v1.0.2</p>
+            <p className="text-slate-400 text-xs md:text-sm mt-1">v1.0.3</p>
           </div>
           <button
             onClick={() => router.push('/')}
