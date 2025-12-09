@@ -49,14 +49,17 @@ export default function AdminPanel() {
     setLoading(true);
     try {
       const symbolPath = selectedSymbol === 'SPXW' ? 'spx' : 'rut';
+      const tradesUrl = `/api/trades/${symbolPath}?limit=50`;
+      console.log('Fetching trades from:', tradesUrl, 'for symbol:', selectedSymbol);
+      
       const [tradesRes, configsRes] = await Promise.all([
-        fetch(`/api/trades/${symbolPath}?limit=50`),
+        fetch(tradesUrl),
         fetch('/api/config')
       ]);
 
       if (tradesRes.ok) {
         const tradesData = await tradesRes.json();
-        console.log('Trades data:', tradesData);
+        console.log('Trades data received:', tradesData.length, 'trades');
         // Ensure tradesData is an array and filter out invalid trades
         const validTrades = Array.isArray(tradesData) 
           ? tradesData.filter(t => t && t.id) 
