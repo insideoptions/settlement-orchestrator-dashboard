@@ -1,17 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Pool } from 'pg';
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
+const LAMBDA_URL = 'https://pu3qevb4iuuqqhgjgzswmmgkxe0xzmkq.lambda-url.us-east-1.on.aws/';
 
 export async function POST(request: NextRequest) {
   try {
     const { id, symbol } = await request.json();
-
+    
     if (!id || !symbol) {
       return NextResponse.json(
         { error: 'Missing required fields' },
@@ -19,18 +13,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Determine which table to use
-    const table = symbol === 'RUT' ? 'trade_alert_rut' : 'trade_alert';
+    // Call Lambda function instead of direct DB access
+    const response = await fetch(LAMBDA_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        adminAction: 'deleteTrade',
+        tradeId: id,
+        symbol: symbol
+      }),
+    });
 
-    const result = await pool.query(
-      `DELETE FROM ${table} WHERE id = $1 RETURNING id`,
-      [id]
-    );
+    const data = await response.json();
 
-    if (result.rowCount === 0) {
+    if (!data.success) {
       return NextResponse.json(
-        { error: 'Trade not found' },
-        { status: 404 }
+        { error: data.error || 'Failed to delete trade' },
+        { status: 500 }
       );
     }
 
