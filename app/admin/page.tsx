@@ -305,7 +305,7 @@ export default function AdminPanel() {
                               className="w-24 px-2 py-1 bg-slate-700 text-white rounded border border-slate-600 text-sm"
                             />
                           ) : (
-                            <span className="text-slate-300 text-sm">{trade.entry_price ? trade.entry_price.toFixed(2) : '-'}</span>
+                            <span className="text-slate-300 text-sm">{trade.entry_price != null ? trade.entry_price.toFixed(2) : '-'}</span>
                           )}
                         </td>
                         <td className="px-4 py-3">
@@ -370,7 +370,7 @@ export default function AdminPanel() {
                               className="w-20 px-2 py-1 bg-slate-700 text-white rounded border border-slate-600 text-sm"
                             />
                           ) : (
-                            <span className="text-slate-300 text-sm">${trade.credit ? trade.credit.toFixed(2) : '0.00'}</span>
+                            <span className="text-slate-300 text-sm">${trade.credit != null ? trade.credit.toFixed(2) : '0.00'}</span>
                           )}
                         </td>
                         <td className="px-4 py-3">
@@ -384,7 +384,7 @@ export default function AdminPanel() {
                             />
                           ) : (
                             <span className="text-slate-300 text-sm">
-                              {trade.settlement_price ? trade.settlement_price.toFixed(2) : '-'}
+                              {trade.settlement_price != null ? trade.settlement_price.toFixed(2) : '-'}
                             </span>
                           )}
                         </td>
@@ -402,7 +402,7 @@ export default function AdminPanel() {
                               trade.pnl === null ? 'text-slate-400' :
                               trade.pnl > 0 ? 'text-green-400' : 'text-red-400'
                             }`}>
-                              {trade.pnl !== null ? `$${trade.pnl.toFixed(2)}` : '-'}
+                              {trade.pnl != null ? `$${trade.pnl.toFixed(2)}` : '-'}
                             </span>
                           )}
                         </td>
@@ -497,11 +497,11 @@ export default function AdminPanel() {
                       <div className="grid grid-cols-2 gap-2 text-xs mb-2">
                         <div>
                           <div className="text-slate-400">Entry</div>
-                          <div className="text-white">{trade.entry_price ? trade.entry_price.toFixed(2) : '-'}</div>
+                          <div className="text-white">{trade.entry_price != null ? trade.entry_price.toFixed(2) : '-'}</div>
                         </div>
                         <div>
                           <div className="text-slate-400">Credit</div>
-                          <div className="text-white">${trade.credit ? trade.credit.toFixed(2) : '0.00'}</div>
+                          <div className="text-white">${trade.credit != null ? trade.credit.toFixed(2) : '0.00'}</div>
                         </div>
                         <div>
                           <div className="text-slate-400">CALL</div>
@@ -513,15 +513,15 @@ export default function AdminPanel() {
                         </div>
                         <div>
                           <div className="text-slate-400">Settlement</div>
-                          <div className="text-white">{trade.settlement_price ? trade.settlement_price.toFixed(2) : '-'}</div>
+                          <div className="text-white">{trade.settlement_price != null ? trade.settlement_price.toFixed(2) : '-'}</div>
                         </div>
                         <div>
                           <div className="text-slate-400">P&L</div>
                           <div className={`font-semibold ${
-                            trade.pnl === null ? 'text-slate-400' :
+                            trade.pnl == null ? 'text-slate-400' :
                             trade.pnl > 0 ? 'text-green-400' : 'text-red-400'
                           }`}>
-                            {trade.pnl !== null ? `$${trade.pnl.toFixed(2)}` : '-'}
+                            {trade.pnl != null ? `$${trade.pnl.toFixed(2)}` : '-'}
                           </div>
                         </div>
                       </div>
