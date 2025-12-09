@@ -242,7 +242,8 @@ export default function AdminPanel() {
             <table className="w-full">
               <thead className="bg-slate-700">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-300 uppercase">Date</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-300 uppercase">Entry Date</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-300 uppercase">Expiration</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-300 uppercase">Level</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-300 uppercase">Entry</th>
                   <th className="px-4 py-3 text-left text-xs font-semibold text-slate-300 uppercase">Call Strikes</th>
@@ -281,7 +282,28 @@ export default function AdminPanel() {
                       return (
                         <tr key={trade.id} className="hover:bg-slate-750">
                         <td className="px-4 py-3 text-sm text-slate-300">
-                          {new Date(trade.created_at).toLocaleDateString()}
+                          {isEditing ? (
+                            <input
+                              type="date"
+                              value={displayTrade.created_at ? new Date(displayTrade.created_at).toISOString().split('T')[0] : ''}
+                              onChange={(e) => updateField('created_at', e.target.value)}
+                              className="w-32 px-2 py-1 bg-slate-700 text-white rounded border border-slate-600 text-sm"
+                            />
+                          ) : (
+                            new Date(trade.created_at).toLocaleDateString()
+                          )}
+                        </td>
+                        <td className="px-4 py-3 text-sm text-slate-300">
+                          {isEditing ? (
+                            <input
+                              type="date"
+                              value={displayTrade.expiration || ''}
+                              onChange={(e) => updateField('expiration', e.target.value)}
+                              className="w-32 px-2 py-1 bg-slate-700 text-white rounded border border-slate-600 text-sm"
+                            />
+                          ) : (
+                            new Date(trade.expiration).toLocaleDateString()
+                          )}
                         </td>
                         <td className="px-4 py-3">
                           {isEditing ? (
